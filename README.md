@@ -1,5 +1,5 @@
 # cka-exam
-Préréquis: Avoir un cluster kubernetes  disposition
+Préréquis: Avoir un cluster kubernetes  installé
 
 Le sujet de test c'est le fichier "CKA_white_test.txt" 
 
