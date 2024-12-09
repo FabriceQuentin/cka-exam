@@ -1,0 +1,174 @@
+
+CKA (Certified Kubernetes Administrator) EXAM ACCENTURE/ AFDTECH/LA FABRICA
+In this exam you can find Questions on around 70 % of the entire program of CKA EXAM.
+Let us start.
+Read the instructions very well. You need to have a score of 66%
+Do every instruction asked after every question as it is
+
+1) Pod creation
+Create a pod named “pod1-nginx” with an nginx image. Display the result in a file called "result_question1.txt"
+Then do: kubectl get pod pod1-nginx > result_question1.txt
+
+2) Pod creation
+Create a pod apache named “pod2-apache” with an httpd image. Display the result in a file called "result_question2.txt"
+Then do: kubectl get pod pod2-apache > result_question2.txt
+
+3) Get all the element of the cluster
+ write the command to display the list of all the kubernetes objects of every namespace in a file called result_question3.txt
+Then do:  echo "kubectl...." > result_question3.txt
+
+4) Static Pods
+ Create a Static Pod named “my-static-pod” in Namespace “default”. The file’s name should be “my-static-pod.yaml” . It should be of image “nginx:1.16-alpine” and have resource requests for “10m CPU “  and  “20Mi memory”.
+Do this command:  kubectl get pods -n default > result_question4_pods.txt
+Then create a NodePort Service named static-pod-service (name of your file: static-pod-service.yaml) which exposes that static Pod on port 80 and check if it has Endpoints and if it's reachable through the cluster internal IP address. 
+Then run the following command:
+kubectl get svc -n default > result_question4_service.txt
+kubectl get endpoints static-pod-service -n default > result_question4_endpoints.txt
+
+
+5) Deployment and scaling
+ Create a deployment named “apache” that uses the image httpd:latest
+Scale the deployment to 3 replicas.
+Then do these steps: 
+kubectl get deployments apache > result_question5_deployment.txt
+kubectl get pods -l app=apache > result_question5_pods.txt
+
+6) Ingress (à revoir)
+create a deployment named “nginx-deployment”.
+Then create a service called “nginx-service” to expose the deployment.
+Now Create an ingress resource named "nginx-ingress-resource" to efficiently distribute incoming traffic with the following settings: pathType: Prefix , path: /shop , Backend Service Name: nginx-service 
+Then apply the following command:
+kubectl get deployments nginx-deployment > result_question6_deployment.txt
+kubectl get svc nginx-service > result_question6_service.txt
+kubectl get ingress nginx-ingress-resource > result_question6_ingress.txt
+
+7) Create a namespace called " ns-dmset”
+Use Namespace "ns-dmset" for the following. 
+Create a DaemonSet named “ds-important” with image httpd:2.4-alpine and labels id=ds-important and uuid=18426a0b-5f59-4e10-923f-c0e078e82462.
+The Pods it creates should request 10 millicore cpu and 10 mebibyte memory.
+The Pods of that DaemonSet should run on all nodes, also controlplanes.
+
+Then apply the following command:
+kubectl get namespace ns-dmset > result_question7_namespace.txt
+kubectl -n ns-dmset get ds --show-labels > result_question7_daemonset.txt
+kubectl get pods -n ns-dmset -o wide > result_question7_pods.txt
+
+8)  Service Account, Role & RoleBonding
+ Create a namespace called ns-security
+Create a new ServiceAccount called “processor” in namespace ns-security.
+Create a Role and RoleBinding, both named “processor” as well.
+These should allow the new SA to only create Secrets and ConfigMaps in that Namespace.
+Then do:
+kubectl get namespace ns-security > result_question8_namespace.txt
+kubectl get serviceaccount processor -n ns-security > result_question8_serviceaccount.txt
+kubectl get role processor -n ns-security > result_question8_role.txt
+kubectl get rolebinding processor -n ns-security > result_question8_rolebinding.txt
+
+9) Cluster Events
+Write a command into a file called "result_question9.txt" which shows the latest events in the whole cluster, ordered by time (metadata.creationTimestamp).
+ Use kubectl for it.
+Example: echo "kubectl get …." > result_question9.txt
+
+
+10) Deployment, Rolling update
+ Create a new deployment named “cache-deployment” in the default namespace using a custom image redis:7.0.13 . Ensure that the deployment has the following specifications:
+      • Set the replica count to 2.
+      • Set the strategy type RollingUpdate
+      • Configure the MaxUnavailable field to 30% and the MaxSurge field to 45% .
+   Deploy the “cache-deployment” deployment and ensure that all pods are in a ready state.
+   Now, Perform an image upgrade to redis:7.2.1 .
+   Examine the rolling history of the deployment, and save the Total revision count to the result_question10_total-revision.txt file
+
+
+
+11)  Networking/ClusterIP
+Create a Pod named "alpine-pod" in Namespace default using image httpd:2.4.41-alpine.
+Expose it on port 80 as a ClusterIP Service named "alpine-service".
+Then do this:
+kubectl get pod alpine-pod -o wide > result_question11_pod.txt
+kubectl get svc alpine-service -o wide > result_question11_service.txt
+
+12) Network Policy
+ Configure Network Policy to control network traffic between 3 pods in a Kubernetes cluster.
+12-1) Preparation of Pods
+ Create 3 pod with the following parameters:
+a.      Pod name: frontend
+        Image : nginx:latest
+        Namespace : default
+        Labels : app=frontend
+        Port : 80
+
+b.      Pod name: backend
+        Image : nginx:latest
+        Namespace : default
+        Labels : app=backend
+        Port : 80
+
+c.      Pod name: db
+        Image : nginx:latest
+        Namespace : default
+        Labels : app=db
+        Port : 80
+
+Do this after creating the 3 pods:
+kubectl get pod frontend -o wide > result_question12_frontend.txt
+kubectl get pod backend -o wide > result_question12_backend.txt
+kubectl get pod db -o wide > result_question12_db.txt
+
+12-2) creation of the Network Policy
+ Create a Network Policy in a file named “network-policy-backend.yaml” to allow trafic only from pod fron-tend to pod backend on port 80.
+The pod « db » should not receive any traffic. 
+Do "kubectl -f apply network-policy-backend.yaml" to validate the network policy’s configuration.
+Then do this at the end:
+kubectl get networkpolicy allow-frontend-to-backend -o yaml > result_question12_networkpolicy.txt
+
+
+13) Pod with EmptyDir and Hostpath   
+a. Create a pod named busybox-pod1 with an EmptyDir volume. Use the busybox image and mount the volume in the container at /mnt/emptydir.
+Then do this at the end:
+kubectl get pod busybox-pod1 -o yaml > result_question13_busybox_pod1.txt
+
+b. Create a pod named busybox-pod2 with a HostPath volume. Use the busybox image, set the host path to /mnt/hostpath and mount the volume in the container at /mnt/hostpath.
+Then do this at the end:
+kubectl get pod busybox-pod2 -o yaml > result_question13_busybox_pod2.txt
+
+14) PV and PVC 
+a.Create a namesapce called ns-pv-pvc
+Then do this at the end:
+kubectl get namespace ns-pv-pvc -o yaml > result_question14_namespace.txt
+
+b.Create a new PersistentVolume named my-pv. It should have a capacity of 2Gi, accessMode ReadWriteOnce, hostPath /Volumes/Data and no storageClassName defined.
+Then do this at the end:
+kubectl get pv my-pv -o yaml > result_question14_pv.txt
+c.Next create a new PersistentVolumeClaim in namespace ns-pv-pvc named my-pvc .It should request 2Gi storage, accessMode ReadWriteOnce and should not define a storageClassName. The PVC should bound to the PV correctly.
+Then do this at the end:
+kubectl get pvc my-pvc -n ns-pv-pvc -o yaml > result_question14_pvc.txt
+d.Finally create a new Deployment pv-deployment in Namespace ns-pv-pvc which mounts that volume at /tmp/deployment-data. The Pods of that Deployment should be of image httpd:2.4.41-alpine.
+Then do this at the end:
+kubectl get deployment pv-deployment -n ns-pv-pvc -o yaml > result_question14_deployment.txt
+
+15) Pod Multicontainers and Pod Share Volume
+Create a Pod named multi-container-playground in Namespace default with three containers, named c1, c2 and c3. There should be a volume attached to that Pod and mounted into every container, but the volume shouldn't be persisted or shared with other Pods.
+
+Container c1 should be of image nginx:1.17.6-alpine and have the name of the node where its Pod is running available as environment variable MY_NODE_NAME.
+
+Container c2 should be of image busybox:1.31.1 and write the output of the date command every second in the shared volume into file date.log. You can use while true; do date >> /your/vol/path/date.log; sleep 1; done for this.
+
+Container c3 should be of image busybox:1.31.1 and constantly send the content of file date.log from the shared volume to stdout. You can use tail -f /your/vol/path/date.log for this.
+
+Check the logs of container c3 to confirm correct setup.
+
+Then do this at the end:
+kubectl get pod multi-container-playground -o yaml > result_question15_pod.txt 
+kubectl logs multi-container-playground -c c3    (to see the logs. You should wait a few seconds to see them. You can type the command many times if you don’t see them)
+kubectl logs multi-container-playground -c c3 > result_question15_c3_logs.txt
+
+CAUTION: TO DO AFTER THE EXAM
+  To be more ready for the real CKA exam, at the end of this white exam you must do more questions on killacoda.com on these concepts:
+- Cluster upgrade: https://killercoda.com/sachin/course/CKA/cluster-upgrade 
+- kubelet troubleshooting: https://killercoda.com/sachin/course/CKA/kubelet-issue
+- Controlplane troubleshooting: https://killercoda.com/sachin/course/CKA/controller-manager-issue
+- etcd backup: https://killercoda.com/sachin/course/CKA/etcd-backup
+- etcd restore: https://killercoda.com/sachin/course/CKA/etcd-restore
+- application troubleshooting: https://killercoda.com/sachin/course/CKA & crtl+ f “troubleshooting”
+
